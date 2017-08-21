@@ -71,7 +71,7 @@ class ChangePassword extends \RainLoop\Providers\AbstractProvider
 				!preg_match('/[a-z]/', $sPasswordForCheck)||
 				!preg_match('/[0-9]/', $sPasswordForCheck))
 			{
-				throw new \RainLoop\Exceptions\ClientException("Neues Passwort konnte nicht gespeichert werden. Es muss mindestens 8 Zeichen lang sein und einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.");
+				throw new \RainLoop\Exceptions\ClientException("Das neue Passwort muss mindestens 8 Zeichen lang sein, einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.");
 			}
 
 			if (!\MailSo\Base\Utils::PasswordWeaknessCheck($sPasswordForCheck))
