@@ -54,7 +54,7 @@ class ChangePassword extends \RainLoop\Providers\AbstractProvider
 	public function ChangePassword(\RainLoop\Account $oAccount, $sPrevPassword, $sNewPassword)
 	{
 		$mResult = false;
-		
+
 		if ($this->oDriver instanceof \RainLoop\Providers\ChangePassword\ChangePasswordInterface &&
 			$this->PasswordChangePossibility($oAccount))
 		{
@@ -64,9 +64,14 @@ class ChangePassword extends \RainLoop\Providers\AbstractProvider
 			}
 
 			$sPasswordForCheck = \trim($sNewPassword);
-			if (6 > \strlen($sPasswordForCheck))
+
+			// check password rules
+			if (strlen($sPasswordForCheck) < 8 ||
+				!preg_match('/[A-Z]/', $sPasswordForCheck)||
+				!preg_match('/[a-z]/', $sPasswordForCheck)||
+				!preg_match('/[0-9]/', $sPasswordForCheck))
 			{
-				throw new \RainLoop\Exceptions\ClientException(\RainLoop\Notifications::NewPasswordShort);
+				throw new \RainLoop\Exceptions\ClientException("Neues Passwort konnte nicht gespeichert werden. Es muss mindestens 8 Zeichen lang sein und einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.");
 			}
 
 			if (!\MailSo\Base\Utils::PasswordWeaknessCheck($sPasswordForCheck))

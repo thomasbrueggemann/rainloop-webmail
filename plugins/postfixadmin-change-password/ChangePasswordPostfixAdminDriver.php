@@ -211,15 +211,6 @@ class ChangePasswordPostfixAdminDriver implements \RainLoop\Providers\ChangePass
 
 		$bResult = false;
 
-		// check password rules
-		if (strlen($sNewPassword) < 8 ||
-			!preg_match('/[A-Z]/', $sNewPassword)||
-			!preg_match('/[a-z]/', $sNewPassword)||
-			!preg_match('/[0-9]/', $sNewPassword))
-		{
-			return false;
-		}
-
 		if (0 < \strlen($sNewPassword))
 		{
 			try
